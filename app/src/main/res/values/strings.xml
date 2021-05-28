@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MedicApp</string>
+
+    <string-array name="specialities">
+        <item>Allergy and immunology</item>
+        <item>Anesthesiology</item>
+        <item>Internal medicine</item>
+        <item>Allergy and immunology</item>
+        <item>Family medicine</item>
+        <item>Diagnostic radiology</item>
+        <item>Emergency medicine</item>
+        <item>Medical genetics</item>
+    </string-array>
+
+</resources>

@@ -1,6 +1,8 @@
 package com.example.medicapp;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,12 +21,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
     private Context context;
+    private Activity activity;
     private ArrayList doc_id, doc_firstName, doc_lastName, doc_address,doc_tele,doc_teleper,doc_speciality;
 
-    CustomAdapter(Context context, ArrayList doc_id, ArrayList doc_firstName, ArrayList doc_lastName,
+
+    CustomAdapter(Activity activity,Context context, ArrayList doc_id, ArrayList doc_firstName, ArrayList doc_lastName,
                   ArrayList doc_address,ArrayList doc_tele,ArrayList doc_teleper,ArrayList doc_speciality){
 
         this.context = context;
+        this.activity=activity;
         this.doc_id = doc_id;
         this.doc_firstName = doc_firstName;
         this.doc_lastName = doc_lastName;
@@ -49,6 +55,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.doc_phone_txt.setText(String.valueOf(doc_tele.get(position)));
         holder.doc_speciality_txt.setText(String.valueOf(doc_speciality.get(position)));
 
+        holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, UpdateActivity.class);
+                intent.putExtra("id", String.valueOf(doc_id.get(position)));
+                intent.putExtra("firstName", String.valueOf(doc_firstName.get(position)));
+                intent.putExtra("lastName", String.valueOf(doc_lastName.get(position)));
+                intent.putExtra("address", String.valueOf(doc_address.get(position)));
+                intent.putExtra("tele", String.valueOf(doc_tele.get(position)));
+                intent.putExtra("per_tele", String.valueOf(doc_teleper.get(position)));
+                intent.putExtra("speciality", String.valueOf(doc_speciality.get(position)));
+
+                activity.startActivityForResult(intent, 1);
+            }
+        });
+
     }
 
     @Override
@@ -59,6 +81,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView doc_id_txt, doc_fullName_txt, doc_phone_txt, doc_speciality_txt;
+        LinearLayout mainLayout;
 
 
         MyViewHolder(@NonNull View itemView) {
@@ -67,8 +90,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             doc_fullName_txt = itemView.findViewById(R.id.doc_fullName_txt);
             doc_phone_txt = itemView.findViewById(R.id.doc_phone_txt);
             doc_speciality_txt = itemView.findViewById(R.id.doc_speciality_txt);
-        }
+            mainLayout=itemView.findViewById(R.id.mainLayout);
 
+
+        }
     }
 
 

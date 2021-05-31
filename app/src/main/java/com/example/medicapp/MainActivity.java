@@ -33,5 +33,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        AppointCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,AppointmentsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

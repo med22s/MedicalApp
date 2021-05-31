@@ -139,13 +139,9 @@ public class UpdateActivity extends AppCompatActivity implements AdapterView.OnI
             // set the spinner selected value from the db
 
             if(speciality!=null){
-
                 int spinnerPosition = adapter.getPosition(speciality);
                 spinner.setSelection(spinnerPosition);
-
             }
-
-
 
         }else{
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();

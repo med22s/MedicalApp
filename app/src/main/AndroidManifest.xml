@@ -9,8 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MedicApp">
-        <activity android:name=".UpdateActivity" android:parentActivityName=".DoctorsActivity"
-            android:label="Update Doctor"></activity>
+        <activity android:name=".UpdateAppointment"></activity>
+        <activity
+            android:name=".AddAppointment"
+            android:label="Add Appointment"
+            android:parentActivityName=".AppointmentsActivity" />
+        <activity
+            android:name=".AppointmentsActivity"
+            android:label="Appointments List" />
+        <activity
+            android:name=".UpdateActivity"
+            android:label="Update Doctor"
+            android:parentActivityName=".DoctorsActivity" />
         <activity
             android:name=".AddDoctor"
             android:label="Add Doctor"

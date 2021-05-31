@@ -101,10 +101,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="94dp"
+        android:layout_marginRight="94dp"
         android:text="Speciality:"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/spinner"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPhone2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

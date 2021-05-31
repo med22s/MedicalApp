@@ -15,6 +15,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MedicApp.db";
     private static final int DATABASE_VERSION = 1;
 
+
+    // Doctors DB:
+
     private static final String TABLE_NAME = "Doctors";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_FIRSTNAME = "first_name";
@@ -24,8 +27,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PERTELEPHONE = "per_tele";
     private static final String COLUMN_SPECIALITY = "speciality";
 
+    // Appointments db
 
-
+    private static final String TABLE_NAME2 = "Appointments";
+    private static final String COLUMN_ID2 = "_id";
+    private static final String COLUMN_DATE = "date";
+    private static final String COLUMN_REASON = "reason";
+    private static final String COLUMN_DOC_ID = "doc_id";
 
 
     public MyDatabaseHelper(@Nullable Context context) {
@@ -34,9 +42,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onOpen(SQLiteDatabase db) {
+        db.execSQL("PRAGMA foreign_keys = ON;");
+    }
+
+    @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String query = "CREATE TABLE " + TABLE_NAME +
+        // Doctors db
+
+        String query1 = "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_FIRSTNAME + " TEXT, " +
                 COLUMN_LASTNAME + " TEXT, " +
@@ -44,13 +59,24 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_TELEPHONE +" TEXT, " +
                 COLUMN_PERTELEPHONE +" TEXT, " +
                 COLUMN_SPECIALITY +" TEXT);";
-        db.execSQL(query);
+
+        db.execSQL(query1);
+
+        // Appointments db
+
+        String query2 = "CREATE TABLE " + TABLE_NAME2 +
+                " (" + COLUMN_ID2 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_DATE + " TEXT, " +
+                COLUMN_REASON + " TEXT, " +
+                COLUMN_DOC_ID + " TEXT REFERENCES Doctors(_id) ON DELETE CASCADE);";
+        db.execSQL(query2);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         onCreate(db);
     }
 
@@ -121,6 +147,70 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     void deleteAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
+    }
+
+
+
+    void addAppointment(String date, String reason, String doc_id ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_DATE, date);
+        cv.put(COLUMN_REASON, reason);
+        cv.put(COLUMN_DOC_ID, doc_id);
+
+        long result = db.insert(TABLE_NAME2,null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAllData2(){
+        String query = "SELECT * FROM " + TABLE_NAME2;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+
+    void updateData2(String row_id,String date, String reason, String doc_id ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_DATE, date);
+        cv.put(COLUMN_REASON, reason);
+        cv.put(COLUMN_DOC_ID, doc_id);
+
+        long result = db.update(TABLE_NAME2, cv, "_id=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    void DeleteData2(String row_id){
+        SQLiteDatabase db=this.getWritableDatabase();
+        long result=db.delete(TABLE_NAME2,"_id=?",new String[]{row_id});
+        if(result==-1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    void deleteAllData2(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NAME2);
     }
 
 

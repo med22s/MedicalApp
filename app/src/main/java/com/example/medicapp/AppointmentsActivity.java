@@ -58,7 +58,7 @@ public class AppointmentsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 MyDatabaseHelper myDB = new MyDatabaseHelper(AppointmentsActivity.this);
-                myDB.deleteAllData2();
+                myDB.deleteAllData("Appointments");
 
                 Intent intent = new Intent(AppointmentsActivity.this, AppointmentsActivity.class);
                 startActivity(intent);
@@ -118,10 +118,6 @@ public class AppointmentsActivity extends AppCompatActivity {
             recyclerView.setAdapter(customAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(AppointmentsActivity.this));
 
-
-
-
-
     }
 
 
@@ -136,7 +132,7 @@ public class AppointmentsActivity extends AppCompatActivity {
     private void storeDataInArrays() {
 
 
-        Cursor cursor = myDB.readAllData2();
+        Cursor cursor = myDB.readAllData("Appointments");
         if(cursor.getCount() <= 0 ){
             empty_imageview.setVisibility(View.VISIBLE);
             no_data.setVisibility(View.VISIBLE);

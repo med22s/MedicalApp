@@ -75,13 +75,12 @@ public class AddAppointment extends AppCompatActivity  {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-
     }
 
 
 
     Cursor storeDataInArrays(){
-        Cursor cursor = myDB.readAllData();
+        Cursor cursor = myDB.readAllData("Doctors");
         if(cursor.getCount() > 0 ){
             while (cursor.moveToNext()){
                 doc_id.add(cursor.getString(0));

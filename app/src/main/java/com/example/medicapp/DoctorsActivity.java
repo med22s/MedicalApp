@@ -98,10 +98,6 @@ public class DoctorsActivity extends AppCompatActivity {
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(DoctorsActivity.this));
 
-
-
-
-
     }
 
     @Override
@@ -122,7 +118,7 @@ public class DoctorsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 MyDatabaseHelper myDB = new MyDatabaseHelper(DoctorsActivity.this);
-                myDB.deleteAllData();
+                myDB.deleteAllData("Doctors");
 
                 Intent intent = new Intent(DoctorsActivity.this, DoctorsActivity.class);
                 startActivity(intent);
@@ -140,7 +136,7 @@ public class DoctorsActivity extends AppCompatActivity {
 
 
     void storeDataInArrays(){
-        Cursor cursor = myDB.readAllData();
+        Cursor cursor = myDB.readAllData("Doctors");
         if(cursor.getCount() <= 0 ){
             empty_imageview.setVisibility(View.VISIBLE);
             no_data.setVisibility(View.VISIBLE);

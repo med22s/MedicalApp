@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".PrescriptionsActivity">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/floatingActionButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
@@ -20,7 +21,7 @@
         app:srcCompat="@drawable/ic_add" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/recyclerView3"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:layout_marginStart="1dp"
@@ -37,7 +38,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <ImageView
-        android:id="@+id/empty_imageview2"
+        android:id="@+id/empty_imageview3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
@@ -50,7 +51,7 @@
         app:srcCompat="@drawable/ic_empty" />
 
     <TextView
-        android:id="@+id/no_data2"
+        android:id="@+id/no_data3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -59,7 +60,9 @@
         android:alpha="0.8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/empty_imageview2" />
+        app:layout_constraintTop_toBottomOf="@+id/empty_imageview3" />
+
+
 
 
 

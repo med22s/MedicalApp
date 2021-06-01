@@ -93,7 +93,7 @@ public class UpdateActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
-                myDB.DeleteData(id);
+                myDB.DeleteData(id,"Doctors");
                 finish();
             }
         });
@@ -105,8 +105,6 @@ public class UpdateActivity extends AppCompatActivity implements AdapterView.OnI
         });
         builder.create().show();
     }
-
-
 
 
 

@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MedicApp">
-        <activity android:name=".UpdateAppointment"></activity>
+        <activity android:name=".AddPrescription"></activity>
+        <activity android:name=".PrescriptionsActivity" />
+        <activity android:name=".UpdateAppointment" />
         <activity
             android:name=".AddAppointment"
             android:label="Add Appointment"

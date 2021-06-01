@@ -62,7 +62,7 @@ public class UpdateAppointment extends AppCompatActivity {
 
 
 
-        Cursor c=myDB.readAllData();
+        Cursor c=myDB.readAllData("Appointments");
 
 
         // make an adapter from the cursor
@@ -81,7 +81,6 @@ public class UpdateAppointment extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-                Toast.makeText(UpdateAppointment.this,String.valueOf(position),Toast.LENGTH_LONG).show();
                 docId=String.valueOf(id);
             }
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -90,17 +89,6 @@ public class UpdateAppointment extends AppCompatActivity {
 
 
         getAndSetIntentData(spinner);
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -116,7 +104,7 @@ public class UpdateAppointment extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateAppointment.this);
-                myDB.DeleteData2(id);
+                myDB.DeleteData(id,"Appointments");
                 finish();
             }
         });
@@ -146,7 +134,6 @@ public class UpdateAppointment extends AppCompatActivity {
             int docIdPosition=getIntent().getIntExtra("docIdPosition",0);
 
 
-
             txtDate.setText(date);
             txtReason.setText(reason);
 
@@ -155,7 +142,7 @@ public class UpdateAppointment extends AppCompatActivity {
             // set the spinner selected value from the db
 
             if(docId!=null){
-                Toast.makeText(UpdateAppointment.this,String.valueOf(docIdPosition),Toast.LENGTH_LONG).show();
+
                 spinner.setSelection(docIdPosition);
             }
 

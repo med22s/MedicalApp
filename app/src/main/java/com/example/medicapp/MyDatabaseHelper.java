@@ -36,6 +36,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DOC_ID = "doc_id";
 
 
+    // Prescriptions db
+
+    private static final String TABLE_NAME3 = "Prescriptions";
+    private static final String COLUMN_ID3 = "_id";
+    private static final String COLUMN_PHOTO = "photo";
+    private static final String COLUMN_APPOINTMENT = "appointment";
+    private static final String COLUMN_OBSERVATION = "observation";
+
+
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context=context;
@@ -71,12 +80,22 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_DOC_ID + " TEXT REFERENCES Doctors(_id) ON DELETE CASCADE);";
         db.execSQL(query2);
 
+        // Prescriptions db
+
+        String query3 = "CREATE TABLE " + TABLE_NAME3 +
+                " (" + COLUMN_ID3 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_PHOTO + " BLOB, " +
+                COLUMN_APPOINTMENT + " TEXT REFERENCES Appointments(_id) ON DELETE CASCADE, " +
+                COLUMN_OBSERVATION + " TEXT);";
+        db.execSQL(query3);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
         onCreate(db);
     }
 
@@ -99,8 +118,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    Cursor readAllData(){
-        String query = "SELECT * FROM " + TABLE_NAME;
+    Cursor readAllData(String table_name){
+        String query = "SELECT * FROM " + table_name;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -133,9 +152,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    void DeleteData(String row_id){
+    void DeleteData(String row_id,String table_name){
         SQLiteDatabase db=this.getWritableDatabase();
-        long result=db.delete(TABLE_NAME,"_id=?",new String[]{row_id});
+        long result=db.delete(table_name,"_id=?",new String[]{row_id});
         if(result==-1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
@@ -144,11 +163,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    void deleteAllData(){
+    void deleteAllData(String table_name){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME);
+        db.execSQL("DELETE FROM " + table_name);
     }
-
 
 
     void addAppointment(String date, String reason, String doc_id ){
@@ -167,16 +185,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    Cursor readAllData2(){
-        String query = "SELECT * FROM " + TABLE_NAME2;
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
-        }
-        return cursor;
-    }
 
 
     void updateData2(String row_id,String date, String reason, String doc_id ){
@@ -197,23 +206,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    void DeleteData2(String row_id){
-        SQLiteDatabase db=this.getWritableDatabase();
-        long result=db.delete(TABLE_NAME2,"_id=?",new String[]{row_id});
-        if(result==-1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(context, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
-        }
-    }
 
-
-    void deleteAllData2(){
+    void updateData3(String row_id,String date, String reason, String doc_id ){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME2);
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_DATE, date);
+        cv.put(COLUMN_REASON, reason);
+        cv.put(COLUMN_DOC_ID, doc_id);
+
+        long result = db.update(TABLE_NAME2, cv, "_id=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
     }
-
-
 
 
 }

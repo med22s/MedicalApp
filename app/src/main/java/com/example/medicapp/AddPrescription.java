@@ -4,15 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -21,7 +28,12 @@ import java.io.InputStream;
 public class AddPrescription extends AppCompatActivity {
 
     ImageView pickImag;
+    MyDatabaseHelper myDB;
+    EditText txtObservation;
+    Spinner spinner;
+    Button btnAdd;
     byte[] image = null;
+    String appId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +41,46 @@ public class AddPrescription extends AppCompatActivity {
         setContentView(R.layout.activity_add_prescription);
 
         pickImag=findViewById(R.id.pickImage);
+        myDB=new MyDatabaseHelper(AddPrescription.this);
+        spinner=findViewById(R.id.spinner2);
+        txtObservation=findViewById(R.id.txtObservation);
+        btnAdd=findViewById(R.id.btnAdd3);
+
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BitmapDrawable drawable = (BitmapDrawable) pickImag.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+                image = getBytes(bitmap);
+            }
+        });
+
+
+        // make an adapter from the cursor
+        String[] from = new String[] {"_id"};
+
+        // cursor
+
+        Cursor c=myDB.readAllData("Appointments");
+
+        int[] to = new int[] {android.R.id.text1};
+        SimpleCursorAdapter sca =
+                new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, c, from, to,0);
+
+        // set layout for activated adapter
+        sca.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        spinner.setAdapter(sca);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+                appId=String.valueOf(id);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
     }
 

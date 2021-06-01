@@ -15,6 +15,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class UpdateAppointment extends AppCompatActivity {
 
     EditText txtDate,txtReason;
@@ -62,9 +64,23 @@ public class UpdateAppointment extends AppCompatActivity {
 
 
 
-        Cursor c=myDB.readAllData("Appointments");
+        ArrayList<String> spinnerArray=fillSpinner();
 
 
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArray);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+
+
+        getAndSetIntentData(spinner);
+
+
+/*
         // make an adapter from the cursor
         String[] from = new String[] {"_id"};
 
@@ -87,8 +103,8 @@ public class UpdateAppointment extends AppCompatActivity {
         });
 
 
+*/
 
-        getAndSetIntentData(spinner);
 
 
     }
@@ -118,7 +134,19 @@ public class UpdateAppointment extends AppCompatActivity {
     }
 
 
+    ArrayList<String> fillSpinner(){
+        Cursor cursor=myDB.readAllData("Doctors");
+        // you need to have a list of data that you want the spinner to display
+        ArrayList<String> spinnerArray =  new ArrayList<>();
 
+        if(cursor.getCount() > 0 ){
+            while (cursor.moveToNext()){
+                spinnerArray.add(cursor.getString(0));
+            }
+        }
+
+        return spinnerArray;
+    }
 
 
 
@@ -143,7 +171,7 @@ public class UpdateAppointment extends AppCompatActivity {
 
             if(docId!=null){
 
-                spinner.setSelection(docIdPosition);
+               spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(docId));
             }
 
         }else{

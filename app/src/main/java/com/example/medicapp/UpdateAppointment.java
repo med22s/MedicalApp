@@ -17,13 +17,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class UpdateAppointment extends AppCompatActivity {
+public class UpdateAppointment extends AppCompatActivity  {
 
     EditText txtDate,txtReason;
     Spinner spinner;
     Button btnUpdate,btnDelete;
 
-    String id,date,reason,docId;
+    String id,date,reason,docId,Doctor;
 
     MyDatabaseHelper myDB;
 
@@ -50,7 +50,7 @@ public class UpdateAppointment extends AppCompatActivity {
                 date = txtDate.getText().toString().trim();
                 reason = txtReason.getText().toString().trim();
 
-                myDB.updateData2(id,date,reason,docId);
+                myDB.updateData2(id,date,reason,Doctor);
             }
         });
 
@@ -66,15 +66,26 @@ public class UpdateAppointment extends AppCompatActivity {
 
         ArrayList<String> spinnerArray=fillSpinner();
 
-
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, spinnerArray);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Doctor=String.valueOf(parent.getItemAtPosition(position));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         getAndSetIntentData(spinner);
@@ -108,6 +119,9 @@ public class UpdateAppointment extends AppCompatActivity {
 
 
     }
+
+
+
 
 
 

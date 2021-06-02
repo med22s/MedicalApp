@@ -45,6 +45,18 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_OBSERVATION = "observation";
 
 
+    // Medicines db
+
+    private static final String TABLE_NAME4 = "Medicines";
+    private static final String COLUMN_ID4 = "_id";
+    private static final String COLUMN_NOM = "nom";
+    private static final String COLUMN_PHOTO2 = "photo";
+    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_PRESCRIPTION = "prescription";
+
+
+
+
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context=context;
@@ -207,21 +219,38 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    void updateData3(String row_id,String date, String reason, String doc_id ){
+    void updateData3(String row_id,byte[] image, String appointment, String observation ){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_DATE, date);
-        cv.put(COLUMN_REASON, reason);
-        cv.put(COLUMN_DOC_ID, doc_id);
+        cv.put(COLUMN_PHOTO, image);
+        cv.put(COLUMN_APPOINTMENT, appointment);
+        cv.put(COLUMN_OBSERVATION, observation);
 
-        long result = db.update(TABLE_NAME2, cv, "_id=?", new String[]{row_id});
+        long result = db.update(TABLE_NAME3, cv, "_id=?", new String[]{row_id});
         if(result == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+
+    void addPrescription(byte[] image, String appointment, String observation ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_PHOTO, image);
+        cv.put(COLUMN_APPOINTMENT, appointment);
+        cv.put(COLUMN_OBSERVATION, observation);
+
+        long result = db.insert(TABLE_NAME3,null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

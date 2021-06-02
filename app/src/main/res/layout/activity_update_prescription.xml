@@ -5,31 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".AddPrescription">
+    tools:context=".UpdatePrescription">
 
-
+    <Button
+        android:id="@+id/btnDelete3_3"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#fc3c19"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUpdate3_3" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Appointment Number"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pickImage" />
+        app:layout_constraintTop_toBottomOf="@+id/pickImage2" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinner2_2"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/pickImage" />
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/pickImage2" />
 
     <EditText
-        android:id="@+id/txtObservation"
+        android:id="@+id/txtObservation2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -38,30 +48,30 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
-        android:id="@+id/btnAdd3"
+        android:id="@+id/btnUpdate3_3"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
-        android:text="Add"
+        android:text="Update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtObservation" />
+        app:layout_constraintTop_toBottomOf="@+id/txtObservation2" />
 
     <ImageView
-        android:id="@+id/pickImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:id="@+id/pickImage2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="28dp"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/medicines" />
 
     <Button
-        android:id="@+id/btnOpenGallery"
+        android:id="@+id/btnOpenGallery2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
@@ -69,4 +79,6 @@
         android:onClick="openGalleries"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

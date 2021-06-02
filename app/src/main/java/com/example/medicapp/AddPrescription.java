@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -52,7 +53,10 @@ public class AddPrescription extends AppCompatActivity {
             public void onClick(View v) {
                 BitmapDrawable drawable = (BitmapDrawable) pickImag.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
-                image = getBytes(bitmap);
+
+                resize(bitmap);
+
+                myDB.addPrescription(image,appId, txtObservation.getText().toString());
             }
         });
 
@@ -87,6 +91,7 @@ public class AddPrescription extends AppCompatActivity {
 
     public void openGalleries(View view) {
 
+
         Intent intentImg = new Intent(Intent.ACTION_GET_CONTENT);
         intentImg.setType("image/*");
         startActivityForResult(intentImg, 100);
@@ -103,16 +108,28 @@ public class AddPrescription extends AppCompatActivity {
 
             try {
                 InputStream inputStream = getContentResolver().openInputStream(uri);
-                Bitmap decodeStream = BitmapFactory.decodeStream(inputStream);
-                decodeStream=getResizedBitmap(decodeStream,300,300);
-                pickImag.setImageBitmap(decodeStream);
+                Bitmap decodeStream = getInputStream(inputStream);
+                resize(decodeStream);
 
-                image = getBytes(decodeStream);
+
+
 
             } catch (Exception ex) {
                 Log.e("ex", ex.getMessage());
             }
         }
+    }
+
+    Bitmap getInputStream(InputStream inputStream){
+        return  BitmapFactory.decodeStream(inputStream);
+    }
+
+
+    void resize(Bitmap decodeStream){
+        decodeStream=getResizedBitmap(decodeStream,350,350);
+        pickImag.setImageBitmap(decodeStream);
+
+        image = getBytes(decodeStream);
     }
 
 

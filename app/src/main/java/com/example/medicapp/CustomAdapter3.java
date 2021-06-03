@@ -95,9 +95,9 @@ public class CustomAdapter3 extends RecyclerView.Adapter<CustomAdapter3.MyViewHo
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtObservation = itemView.findViewById(R.id.txtObservation);
+            txtObservation = itemView.findViewById(R.id.txtName);
             medecineImage = itemView.findViewById(R.id.medecineImage);
-            txtAppointment = itemView.findViewById(R.id.txtAppointment);
+            txtAppointment = itemView.findViewById(R.id.txtPrescription4);
 
             mainLayout3=itemView.findViewById(R.id.mainLayout3);
 

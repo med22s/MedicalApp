@@ -22,38 +22,44 @@ import android.widget.Spinner;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-public class AddPrescription extends AppCompatActivity {
+public class AddMedicine extends AppCompatActivity {
 
-    ImageView pickImag;
+    ImageView pickImage2;
     MyDatabaseHelper myDB;
-    EditText txtObservation;
+    EditText txtName,txtDescription;
     Spinner spinner;
     Button btnAdd;
     byte[] image = null;
-    String appId;
+    String prescId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_prescription);
+        setContentView(R.layout.activity_add_medecine);
 
-        pickImag=findViewById(R.id.pickImage);
-        myDB=new MyDatabaseHelper(AddPrescription.this);
-        spinner=findViewById(R.id.spinner2);
-        txtObservation=findViewById(R.id.txtName);
-        btnAdd=findViewById(R.id.btnAdd3);
+
+        pickImage2=findViewById(R.id.pickImage2);
+        myDB=new MyDatabaseHelper(AddMedicine.this);
+        spinner=findViewById(R.id.spinner4);
+        txtName=findViewById(R.id.txtName);
+        txtDescription=findViewById(R.id.txtDescription);
+
+        btnAdd=findViewById(R.id.btnAdd4);
+
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BitmapDrawable drawable = (BitmapDrawable) pickImag.getDrawable();
+                BitmapDrawable drawable = (BitmapDrawable) pickImage2.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
                 image = getBytes(bitmap);
 
-                myDB.addPrescription(image,appId, txtObservation.getText().toString());
+                myDB.addMedicine(txtName.getText().toString(),image,
+                        txtDescription.getText().toString(), prescId);
             }
         });
+
 
 
         // make an adapter from the cursor
@@ -61,7 +67,7 @@ public class AddPrescription extends AppCompatActivity {
 
         // cursor
 
-        Cursor c=myDB.readAllData("Appointments");
+        Cursor c=myDB.readAllData("Prescriptions");
 
         int[] to = new int[] {android.R.id.text1};
         SimpleCursorAdapter sca =
@@ -76,10 +82,12 @@ public class AddPrescription extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-                appId=String.valueOf(id);
+                prescId=String.valueOf(id);
             }
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
+
 
     }
 
@@ -122,7 +130,7 @@ public class AddPrescription extends AppCompatActivity {
 
     void resize(Bitmap decodeStream){
         decodeStream=getResizedBitmap(decodeStream,350,350);
-        pickImag.setImageBitmap(decodeStream);
+        pickImage2.setImageBitmap(decodeStream);
 
         image = getBytes(decodeStream);
     }
@@ -152,5 +160,7 @@ public class AddPrescription extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
     }
+
+
 
 }

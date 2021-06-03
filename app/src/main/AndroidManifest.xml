@@ -9,8 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MedicApp">
-        <activity android:name=".UpdatePrescription" android:label="Update Prescription"
-            android:parentActivityName=".UpdatePrescription"></activity>
+        <activity android:name=".AddMedicine" android:label="Add Medicine"
+            android:parentActivityName=".MedicinesActivity" ></activity>
+        <activity android:name=".MedicinesActivity" />
+        <activity
+            android:name=".UpdatePrescription"
+            android:label="Update Prescription"
+            android:parentActivityName=".UpdatePrescription" />
         <activity
             android:name=".AddPrescription"
             android:label="Add Prescription"
@@ -18,7 +23,9 @@
         <activity
             android:name=".PrescriptionsActivity"
             android:label="List of prescriptions" />
-        <activity android:name=".UpdateAppointment" android:label="Update Appointment"
+        <activity
+            android:name=".UpdateAppointment"
+            android:label="Update Appointment"
             android:parentActivityName=".UpdateAppointment" />
         <activity
             android:name=".AddAppointment"

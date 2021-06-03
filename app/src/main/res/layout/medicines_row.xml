@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/mainLayout3">
+    android:id="@+id/mainLayout4">
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
+        android:id="@+id/cardView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -20,8 +20,20 @@
             android:layout_height="wrap_content"
             android:padding="12dp">
 
+            <TextView
+                android:id="@+id/txtDescription4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Medicine Description"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtMedicine4" />
+
             <ImageView
-                android:id="@+id/medecineImage"
+                android:id="@+id/medecineImage4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
@@ -30,26 +42,26 @@
                 app:srcCompat="@drawable/medicines" />
 
             <TextView
-                android:id="@+id/txtName"
+                android:id="@+id/txtMedicine4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Observations"
+                android:layout_marginTop="20dp"
+                android:text="Medicine Name"
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/medecineImage" />
+                app:layout_constraintTop_toBottomOf="@+id/medecineImage4" />
 
             <TextView
                 android:id="@+id/textView5_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Appointment Number"
+                android:layout_marginTop="20dp"
+                android:text="Prescription Number"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtName" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDescription4" />
 
             <TextView
                 android:id="@+id/txtPrescription4"
@@ -57,11 +69,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:text="TextView"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/textView5_5"
-                app:layout_constraintTop_toBottomOf="@+id/txtName" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDescription4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

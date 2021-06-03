@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.sql.Blob;
+
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private Context context;
@@ -101,6 +103,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_OBSERVATION + " TEXT);";
         db.execSQL(query3);
 
+        // Medicines db
+
+        String query4 = "CREATE TABLE " + TABLE_NAME4 +
+                " (" + COLUMN_ID4 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NOM + " TEXT, " +
+                COLUMN_PHOTO2 + " BLOB, " +
+                COLUMN_DESCRIPTION + " TEXT, " +
+                COLUMN_PRESCRIPTION + " TEXT REFERENCES Prescriptions(_id) ON DELETE CASCADE);";
+        db.execSQL(query4);
+
     }
 
     @Override
@@ -108,6 +120,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         onCreate(db);
     }
 
@@ -251,6 +264,42 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }else {
             Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    void addMedicine(String nom, byte[] image,String description,String prescription ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_NOM, nom);
+        cv.put(COLUMN_PHOTO2, image);
+        cv.put(COLUMN_DESCRIPTION, description);
+        cv.put(COLUMN_PRESCRIPTION, prescription);
+
+        long result = db.insert(TABLE_NAME4,null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    void updateData4(String row_id,String nom, byte[] image,String description,String prescription){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_NOM, nom);
+        cv.put(COLUMN_PHOTO2, image);
+        cv.put(COLUMN_DESCRIPTION, description);
+        cv.put(COLUMN_PRESCRIPTION, prescription);
+
+        long result = db.update(TABLE_NAME4, cv, "_id=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
